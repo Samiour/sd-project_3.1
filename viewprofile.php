@@ -25,12 +25,31 @@
 </div>
 
 <div class="mt-5">
-    <p>Username: <?php echo $_SESSION['user_name']; ?></p>
-    <p>Email: <?php echo $_SESSION['email']; ?></p>
-    <p>password: <?php echo $_SESSION['password']; ?></p>
-    <p>gender: <?php echo $_SESSION['gender']; ?></p>
-    <p>address: <?php echo $_SESSION['address']; ?></p>
-    <p>Phone: <?php echo $_SESSION['phone']; ?></p>
+<?php 
+require ('profile-system/db_conn.php');
+$name=$_SESSION['user_name'];
+$sql ="SELECT * FROM users WHERE user_name='$name'";
+$result =$conn->query($sql);
+if($result){
+    while($data = mysqli_fetch_assoc($result)){
+        $user_name = $data['user_name'];
+        $password = $data['password'];
+        $email = $data['email'];
+        $gender = $data['gender'];
+        $address = $data['address'];
+        $phone = $data['phone'];
+    }
+}
+
+?>
+
+
+    <p>Username: <?php echo $user_name ?></p>
+    <p>Email: <?php echo $email ?></p>
+    <p>password: <?php echo $password ?></p>
+    <p>gender: <?php echo $gender ?></p>
+    <p>address: <?php echo $address ?></p>
+    <p>Phone: <?php echo $phone ?></p>
 
 
 </div>
